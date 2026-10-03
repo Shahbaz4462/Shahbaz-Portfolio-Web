@@ -26,10 +26,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'shahbaz04462@gmail.com';
     const resendApiKey = process.env.RESEND_API_KEY;
-    const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
     const web3formsKey = process.env.WEB3FORMS_KEY;
+    const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
+    const recipientEmail = process.env.RECIPIENT_EMAIL || 'shahbaz04462@gmail.com';
 
     let isSent = false;
 
@@ -100,32 +100,47 @@ export async function POST(request: Request) {
       }
     }
 
-    // Option D: Direct FormSubmit dispatch to recipient mailbox
+    // Option D: FormSubmit using the ACTIVATED hash key (avoids re-triggering activation emails)
+    // Hash key obtained from the FormSubmit activation email for mshahbaz.me
     if (!isSent) {
       try {
-        const targetUrl = `https://formsubmit.co/ajax/${recipientEmail}`;
-        await fetch(targetUrl, {
+        const formsubmitHash =
+          process.env.FORMSUBMIT_HASH || '58a709ed51e76ded572319d4c6ffbf96';
+        const targetUrl = `https://formsubmit.co/ajax/${formsubmitHash}`;
+
+        const fsRes = await fetch(targetUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
           },
           body: JSON.stringify({
             name,
             email,
-            _subject: `[Portfolio Contact] ${subject}`,
-            subject,
+            subject: `[Portfolio Contact] ${subject}`,
             message,
             _replyto: email,
             _captcha: 'false',
+            _template: 'table',
           }),
         });
-        isSent = true;
+
+        const fsData = await fsRes.json().catch(() => ({}));
+        if (fsRes.ok && fsData?.success !== 'false' && fsData?.success !== false) {
+          isSent = true;
+        } else {
+          console.error('FormSubmit error response:', fsData);
+        }
       } catch (err) {
         console.error('FormSubmit dispatch error:', err);
-        isSent = true;
       }
+    }
+
+    if (!isSent) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to send message. Please try again later.' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
@@ -133,9 +148,10 @@ export async function POST(request: Request) {
       message: 'Message sent successfully!',
     });
   } catch (err: any) {
+    console.error('Contact API unexpected error:', err);
     return NextResponse.json(
-      { success: true, message: 'Message sent successfully!' },
-      { status: 200 }
+      { success: false, error: 'Failed to process message request. Please try again.' },
+      { status: 500 }
     );
   }
 }
