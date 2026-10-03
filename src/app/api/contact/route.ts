@@ -100,32 +100,11 @@ export async function POST(request: Request) {
       }
     }
 
-    // Option D: Direct FormSubmit dispatch to recipient mailbox
     if (!isSent) {
-      try {
-        const targetUrl = `https://formsubmit.co/ajax/${recipientEmail}`;
-        await fetch(targetUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            _subject: `[Portfolio Contact] ${subject}`,
-            subject,
-            message,
-            _replyto: email,
-            _captcha: 'false',
-          }),
-        });
-        isSent = true;
-      } catch (err) {
-        console.error('FormSubmit dispatch error:', err);
-        isSent = true;
-      }
+      return NextResponse.json(
+        { success: false, error: 'Email service is not properly configured. Please add WEB3FORMS_KEY to your environment variables.' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
@@ -133,9 +112,10 @@ export async function POST(request: Request) {
       message: 'Message sent successfully!',
     });
   } catch (err: any) {
+    console.error('API Error:', err);
     return NextResponse.json(
-      { success: true, message: 'Message sent successfully!' },
-      { status: 200 }
+      { success: false, error: 'An unexpected error occurred while sending the message.' },
+      { status: 500 }
     );
   }
 }
