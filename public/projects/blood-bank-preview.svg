@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E1B4B" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#F87171" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(30, 41, 59, 0.7)" />
+      <stop offset="100%" stop-color="rgba(15, 23, 42, 0.9)" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <circle cx="1000" cy="150" r="250" fill="#EF4444" opacity="0.15" filter="blur(60px)" />
+  <circle cx="200" cy="500" r="250" fill="#2563EB" opacity="0.15" filter="blur(60px)" />
+
+  <!-- App Window Frame -->
+  <rect x="60" y="40" width="1080" height="595" rx="16" fill="url(#cardBg)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" />
+
+  <!-- Header Bar -->
+  <rect x="60" y="40" width="1080" height="56" rx="16" fill="rgba(15, 23, 42, 0.8)" />
+  <circle cx="95" cy="68" r="6" fill="#EF4444" />
+  <circle cx="115" cy="68" r="6" fill="#F59E0B" />
+  <circle cx="135" cy="68" r="6" fill="#10B981" />
+  
+  <text x="180" y="73" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="700" font-size="16">E-Blood Bank Management Platform</text>
+  <rect x="940" y="55" width="160" height="28" rx="14" fill="url(#accent)" />
+  <text x="1020" y="74" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="600" font-size="12" text-anchor="middle">Emergency Request</text>
+
+  <!-- Sidebar -->
+  <rect x="80" y="116" width="220" height="495" rx="12" fill="rgba(30, 41, 59, 0.4)" stroke="rgba(255,255,255,0.05)" />
+  <rect x="100" y="140" width="180" height="36" rx="8" fill="url(#blueGlow)" opacity="0.9" />
+  <text x="140" y="163" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Dashboard</text>
+  
+  <rect x="100" y="190" width="180" height="36" rx="8" fill="transparent" />
+  <text x="140" y="213" fill="#94A3B8" font-family="system-ui, sans-serif" font-weight="500" font-size="14">Donor Directory</text>
+  <rect x="100" y="240" width="180" height="36" rx="8" fill="transparent" />
+  <text x="140" y="263" fill="#94A3B8" font-family="system-ui, sans-serif" font-weight="500" font-size="14">Blood Stock</text>
+  <rect x="100" y="290" width="180" height="36" rx="8" fill="transparent" />
+  <text x="140" y="313" fill="#94A3B8" font-family="system-ui, sans-serif" font-weight="500" font-size="14">Hospital Requests</text>
+
+  <!-- Main Dashboard Grid -->
+  <!-- Stats Row -->
+  <rect x="320" y="116" width="230" height="110" rx="12" fill="rgba(30, 41, 59, 0.5)" stroke="rgba(255,255,255,0.08)" />
+  <text x="340" y="145" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12">Total Active Donors</text>
+  <text x="340" y="185" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="800" font-size="28">1,482</text>
+  <text x="340" y="210" fill="#10B981" font-family="system-ui, sans-serif" font-size="12">↑ 12% this month</text>
+
+  <rect x="570" y="116" width="230" height="110" rx="12" fill="rgba(30, 41, 59, 0.5)" stroke="rgba(255,255,255,0.08)" />
+  <text x="590" y="145" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12">Units Available</text>
+  <text x="590" y="185" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="800" font-size="28">856 Units</text>
+  <text x="590" y="210" fill="#EF4444" font-family="system-ui, sans-serif" font-size="12">O- Urgent Need</text>
+
+  <rect x="820" y="116" width="300" height="110" rx="12" fill="rgba(30, 41, 59, 0.5)" stroke="rgba(255,255,255,0.08)" />
+  <text x="840" y="145" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12">Dispatched Requests</text>
+  <text x="840" y="185" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="800" font-size="28">342 Lives Saved</text>
+
+  <!-- Blood Inventory Grid Cards -->
+  <rect x="320" y="246" width="790" height="365" rx="12" fill="rgba(30, 41, 59, 0.3)" stroke="rgba(255,255,255,0.05)" />
+  <text x="345" y="280" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="700" font-size="18">Real-Time Blood Stock Reserves</text>
+
+  <!-- Blood Group Badges -->
+  <g transform="translate(345, 305)">
+    <!-- A+ -->
+    <rect x="0" y="0" width="165" height="120" rx="10" fill="rgba(239, 68, 68, 0.15)" stroke="#EF4444" stroke-width="1" />
+    <text x="20" y="45" fill="#EF4444" font-family="system-ui, sans-serif" font-weight="800" font-size="28">A+</text>
+    <text x="20" y="80" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14">184 Units</text>
+    <rect x="20" y="95" width="125" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+    <rect x="20" y="95" width="95" height="6" rx="3" fill="#EF4444" />
+
+    <!-- O+ -->
+    <rect x="185" y="0" width="165" height="120" rx="10" fill="rgba(239, 68, 68, 0.15)" stroke="#EF4444" stroke-width="1" />
+    <text x="205" y="45" fill="#EF4444" font-family="system-ui, sans-serif" font-weight="800" font-size="28">O+</text>
+    <text x="205" y="80" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14">240 Units</text>
+    <rect x="205" y="95" width="125" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+    <rect x="205" y="95" width="110" height="6" rx="3" fill="#EF4444" />
+
+    <!-- B+ -->
+    <rect x="370" y="0" width="165" height="120" rx="10" fill="rgba(239, 68, 68, 0.15)" stroke="#EF4444" stroke-width="1" />
+    <text x="390" y="45" fill="#EF4444" font-family="system-ui, sans-serif" font-weight="800" font-size="28">B+</text>
+    <text x="390" y="80" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14">145 Units</text>
+    <rect x="390" y="95" width="125" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+    <rect x="390" y="95" width="75" height="6" rx="3" fill="#EF4444" />
+
+    <!-- O- -->
+    <rect x="555" y="0" width="165" height="120" rx="10" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1" />
+    <text x="575" y="45" fill="#F59E0B" font-family="system-ui, sans-serif" font-weight="800" font-size="28">O-</text>
+    <text x="575" y="80" fill="#F59E0B" font-family="system-ui, sans-serif" font-size="14">32 Units (Low)</text>
+    <rect x="575" y="95" width="125" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+    <rect x="575" y="95" width="25" height="6" rx="3" fill="#F59E0B" />
+  </g>
+
+  <!-- Live Emergency Feed -->
+  <rect x="345" y="450" width="740" height="135" rx="10" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(255,255,255,0.05)" />
+  <text x="365" y="480" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Recent Urgent Requests</text>
+
+  <rect x="365" y="495" width="700" height="36" rx="6" fill="rgba(30, 41, 59, 0.6)" />
+  <text x="380" y="518" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13">City Hospital • 3 Units O- Negative • Status: <tspan fill="#F59E0B">In Progress</tspan></text>
+
+  <rect x="365" y="538" width="700" height="36" rx="6" fill="rgba(30, 41, 59, 0.6)" />
+  <text x="380" y="561" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13">Red Cross Center • 5 Units A+ Positive • Status: <tspan fill="#10B981">Fulfilled</tspan></text>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <circle cx="950" cy="150" r="250" fill="#F59E0B" opacity="0.12" filter="blur(60px)" />
+  <circle cx="200" cy="500" r="250" fill="#06B6D4" opacity="0.12" filter="blur(60px)" />
+
+  <!-- Outer Frame -->
+  <rect x="60" y="40" width="1080" height="595" rx="16" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" />
+
+  <!-- Navbar -->
+  <rect x="60" y="40" width="1080" height="60" fill="rgba(30, 41, 59, 0.7)" />
+  <circle cx="95" cy="70" r="6" fill="#EF4444" />
+  <circle cx="115" cy="70" r="6" fill="#F59E0B" />
+  <circle cx="135" cy="70" r="6" fill="#10B981" />
+  <text x="180" y="75" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="700" font-size="18">Sargodha Sweets &amp; Bakery POS</text>
+
+  <rect x="940" y="55" width="160" height="30" rx="15" fill="url(#gold)" />
+  <text x="1020" y="75" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle">New Bill (F2)</text>
+
+  <!-- POS Main Screen Layout -->
+  <!-- Left Side: Product Grid -->
+  <rect x="80" y="120" width="700" height="495" rx="12" fill="rgba(30, 41, 59, 0.4)" stroke="rgba(255,255,255,0.05)" />
+
+  <!-- Search & Category Filters -->
+  <rect x="100" y="140" width="400" height="40" rx="8" fill="rgba(15, 23, 42, 0.8)" stroke="rgba(255,255,255,0.1)" />
+  <text x="120" y="165" fill="#64748B" font-family="system-ui, sans-serif" font-size="14">🔍 Search product (Gulab Jamun, Barfi...)</text>
+
+  <g transform="translate(100, 195)">
+    <rect x="0" y="0" width="90" height="32" rx="16" fill="url(#cyanGrad)" />
+    <text x="45" y="21" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="600" font-size="12" text-anchor="middle">All Items</text>
+
+    <rect x="100" y="0" width="100" height="32" rx="16" fill="rgba(30, 41, 59, 0.8)" stroke="rgba(255,255,255,0.1)" />
+    <text x="150" y="21" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Traditional Sweets</text>
+
+    <rect x="210" y="0" width="90" height="32" rx="16" fill="rgba(30, 41, 59, 0.8)" stroke="rgba(255,255,255,0.1)" />
+    <text x="255" y="21" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Bakery</text>
+
+    <rect x="310" y="0" width="90" height="32" rx="16" fill="rgba(30, 41, 59, 0.8)" stroke="rgba(255,255,255,0.1)" />
+    <text x="355" y="21" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Cakes &amp; Gifts</text>
+  </g>
+
+  <!-- Product Cards Grid -->
+  <g transform="translate(100, 245)">
+    <!-- Item 1 -->
+    <rect x="0" y="0" width="210" height="170" rx="10" fill="rgba(30, 41, 59, 0.6)" stroke="rgba(255,255,255,0.08)" />
+    <rect x="15" y="15" width="180" height="80" rx="6" fill="rgba(245, 158, 11, 0.15)" />
+    <text x="105" y="60" fill="#F59E0B" font-family="system-ui, sans-serif" font-weight="700" font-size="18" text-anchor="middle">Gulab Jamun</text>
+    <text x="20" y="125" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Rs. 1,200 / kg</text>
+    <rect x="145" y="135" width="50" height="24" rx="6" fill="#06B6D4" />
+    <text x="170" y="151" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="700" font-size="12" text-anchor="middle">+ Add</text>
+
+    <!-- Item 2 -->
+    <rect x="230" y="0" width="210" height="170" rx="10" fill="rgba(30, 41, 59, 0.6)" stroke="rgba(255,255,255,0.08)" />
+    <rect x="245" y="15" width="180" height="80" rx="6" fill="rgba(59, 130, 246, 0.15)" />
+    <text x="335" y="60" fill="#60A5FA" font-family="system-ui, sans-serif" font-weight="700" font-size="18" text-anchor="middle">Special Barfi</text>
+    <text x="250" y="125" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Rs. 1,400 / kg</text>
+    <rect x="375" y="135" width="50" height="24" rx="6" fill="#06B6D4" />
+    <text x="400" y="151" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="700" font-size="12" text-anchor="middle">+ Add</text>
+
+    <!-- Item 3 -->
+    <rect x="460" y="0" width="200" height="170" rx="10" fill="rgba(30, 41, 59, 0.6)" stroke="rgba(255,255,255,0.08)" />
+    <rect x="475" y="15" width="170" height="80" rx="6" fill="rgba(16, 185, 129, 0.15)" />
+    <text x="560" y="60" fill="#34D399" font-family="system-ui, sans-serif" font-weight="700" font-size="18" text-anchor="middle">Rasgulla</text>
+    <text x="480" y="125" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="14">Rs. 1,100 / kg</text>
+    <rect x="590" y="135" width="50" height="24" rx="6" fill="#06B6D4" />
+    <text x="615" y="151" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="700" font-size="12" text-anchor="middle">+ Add</text>
+  </g>
+
+  <!-- Right Side: Order Cart & Bill -->
+  <rect x="800" y="120" width="320" height="495" rx="12" fill="rgba(30, 41, 59, 0.7)" stroke="rgba(255,255,255,0.1)" />
+  <text x="825" y="155" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="700" font-size="16">Current Order Cart</text>
+
+  <rect x="825" y="175" width="270" height="45" rx="8" fill="rgba(15, 23, 42, 0.8)" />
+  <text x="840" y="202" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="500" font-size="13">Gulab Jamun (1 kg)</text>
+  <text x="1075" y="202" fill="#F59E0B" font-family="system-ui, sans-serif" font-weight="700" font-size="13" text-anchor="end">Rs. 1,200</text>
+
+  <rect x="825" y="230" width="270" height="45" rx="8" fill="rgba(15, 23, 42, 0.8)" />
+  <text x="840" y="257" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="500" font-size="13">Special Barfi (0.5 kg)</text>
+  <text x="1075" y="257" fill="#F59E0B" font-family="system-ui, sans-serif" font-weight="700" font-size="13" text-anchor="end">Rs. 700</text>
+
+  <!-- Bill Summary Box -->
+  <rect x="825" y="420" width="270" height="180" rx="10" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(255,255,255,0.1)" />
+  <text x="845" y="450" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="13">Subtotal:</text>
+  <text x="1075" y="450" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="end">Rs. 1,900</text>
+
+  <text x="845" y="475" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="13">Tax (0%):</text>
+  <text x="1075" y="475" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="end">Rs. 0</text>
+
+  <line x1="845" y1="490" x2="1075" y2="490" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4" />
+
+  <text x="845" y="518" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="700" font-size="16">Total Payable:</text>
+  <text x="1075" y="518" fill="#10B981" font-family="system-ui, sans-serif" font-weight="800" font-size="20" text-anchor="end">Rs. 1,900</text>
+
+  <rect x="845" y="540" width="230" height="42" rx="8" fill="url(#cyanGrad)" />
+  <text x="960" y="566" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="700" font-size="14" text-anchor="middle">Print Invoice &amp; Pay</text>
+</svg>
