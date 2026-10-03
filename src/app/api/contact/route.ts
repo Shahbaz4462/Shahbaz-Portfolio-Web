@@ -26,15 +26,22 @@ export async function POST(request: Request) {
       );
     }
 
+    const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || 'https://mshahbaz.me';
     const resendApiKey = process.env.RESEND_API_KEY;
     const web3formsKey = process.env.WEB3FORMS_KEY;
     const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'shahbaz04462@gmail.com';
+
+    // FormSubmit AJAX endpoint uses the REAL email address (not the hash).
+    // The hash is only for the HTML <form action=""> attribute.
+    // The form is already activated so FormSubmit will deliver without sending
+    // another activation email.
+    const formsubmitEmail =
+      process.env.FORMSUBMIT_EMAIL || 'shahbaz04462@gmail.com';
 
     let isSent = false;
 
     // Option A: Resend API (if configured in environment)
-    if (resendApiKey) {
+    if (!isSent && resendApiKey) {
       try {
         const resendRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -44,7 +51,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: process.env.SENDER_EMAIL || 'Portfolio Contact <onboarding@resend.dev>',
-            to: [recipientEmail],
+            to: [formsubmitEmail],
             reply_to: email,
             subject: `[Portfolio Contact] ${subject}`,
             html: `
@@ -57,9 +64,9 @@ export async function POST(request: Request) {
             `,
           }),
         });
-
         if (resendRes.ok) {
           isSent = true;
+          console.log('Email sent via Resend');
         }
       } catch (err) {
         console.error('Resend dispatch error:', err);
@@ -80,7 +87,11 @@ export async function POST(request: Request) {
             message,
           }),
         });
-        if (w3Res.ok) isSent = true;
+        const w3Data = await w3Res.json().catch(() => ({}));
+        if (w3Res.ok && w3Data?.success) {
+          isSent = true;
+          console.log('Email sent via Web3Forms');
+        }
       } catch (err) {
         console.error('Web3Forms dispatch error:', err);
       }
@@ -94,25 +105,28 @@ export async function POST(request: Request) {
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ name, email, subject, message, _replyto: email }),
         });
-        if (fsRes.ok) isSent = true;
+        if (fsRes.ok) {
+          isSent = true;
+          console.log('Email sent via Formspree');
+        }
       } catch (err) {
         console.error('Formspree dispatch error:', err);
       }
     }
 
-    // Option D: FormSubmit using the ACTIVATED hash key (avoids re-triggering activation emails)
-    // Hash key obtained from the FormSubmit activation email for mshahbaz.me
+    // Option D: FormSubmit AJAX — must use real email address, not the hash.
+    // Spoof Origin/Referer to match the activated domain so FormSubmit accepts the request.
     if (!isSent) {
       try {
-        const formsubmitHash =
-          process.env.FORMSUBMIT_HASH || '58a709ed51e76ded572319d4c6ffbf96';
-        const targetUrl = `https://formsubmit.co/ajax/${formsubmitHash}`;
+        const targetUrl = `https://formsubmit.co/ajax/${formsubmitEmail}`;
 
         const fsRes = await fetch(targetUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            'Origin': siteOrigin,
+            'Referer': `${siteOrigin}/`,
           },
           body: JSON.stringify({
             name,
@@ -125,11 +139,18 @@ export async function POST(request: Request) {
           }),
         });
 
-        const fsData = await fsRes.json().catch(() => ({}));
-        if (fsRes.ok && fsData?.success !== 'false' && fsData?.success !== false) {
+        const fsText = await fsRes.text();
+        console.log('FormSubmit response status:', fsRes.status, 'body:', fsText);
+
+        let fsData: any = {};
+        try { fsData = JSON.parse(fsText); } catch { /* non-JSON response */ }
+
+        // FormSubmit returns {"success":"true"} (string, not boolean) on success
+        if (fsRes.ok && (fsData?.success === 'true' || fsData?.success === true)) {
           isSent = true;
+          console.log('Email sent via FormSubmit');
         } else {
-          console.error('FormSubmit error response:', fsData);
+          console.error('FormSubmit failed:', fsRes.status, fsData);
         }
       } catch (err) {
         console.error('FormSubmit dispatch error:', err);
