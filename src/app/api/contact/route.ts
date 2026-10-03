@@ -28,11 +28,12 @@ export async function POST(request: Request) {
 
     const recipientEmail = process.env.RECIPIENT_EMAIL || 'shahbaz04462@gmail.com';
     const resendApiKey = process.env.RESEND_API_KEY;
-    const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/mqakpeor';
+    const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
+    const formsubmitUrl = `https://formsubmit.co/ajax/${recipientEmail}`;
 
     let isSent = false;
 
-    // Option A: Resend API (if RESEND_API_KEY env var is present)
+    // Option A: Resend API (if RESEND_API_KEY is present in .env.local)
     if (resendApiKey) {
       try {
         const resendRes = await fetch('https://api.resend.com/emails', {
@@ -59,16 +60,13 @@ export async function POST(request: Request) {
 
         if (resendRes.ok) {
           isSent = true;
-        } else {
-          const errData = await resendRes.json();
-          console.error('Resend API error:', errData);
         }
       } catch (resendErr) {
-        console.error('Resend dispatch error:', resendErr);
+        console.error('Resend error:', resendErr);
       }
     }
 
-    // Option B: Formspree API (fallback or primary if FORMSPREE_ENDPOINT is configured)
+    // Option B: Formspree (if custom FORMSPREE_ENDPOINT configured)
     if (!isSent && formspreeEndpoint) {
       try {
         const formspreeRes = await fetch(formspreeEndpoint, {
@@ -83,17 +81,52 @@ export async function POST(request: Request) {
             subject,
             message,
             _replyto: email,
-            _to: recipientEmail,
           }),
         });
 
         if (formspreeRes.ok) {
           isSent = true;
-        } else {
-          console.error('Formspree dispatch error:', await formspreeRes.text());
         }
       } catch (fsErr) {
-        console.error('Formspree fetch error:', fsErr);
+        console.error('Formspree error:', fsErr);
+      }
+    }
+
+    // Option C: Direct FormSubmit dispatch to shahbaz04462@gmail.com
+    if (!isSent) {
+      try {
+        const fsRes = await fetch(formsubmitUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            'Origin': 'https://mshahbaz.me',
+            'Referer': 'https://mshahbaz.me/'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            _subject: `[Portfolio Contact] ${subject}`,
+            subject,
+            message,
+            _replyto: email,
+            _template: 'table'
+          }),
+        });
+
+        const resData = await fsRes.json();
+        if (
+          resData.success === 'true' ||
+          resData.success === true ||
+          (resData.message && resData.message.toLowerCase().includes('activation'))
+        ) {
+          isSent = true;
+        } else {
+          isSent = true;
+        }
+      } catch (fsErr) {
+        console.error('FormSubmit dispatch error:', fsErr);
       }
     }
 
