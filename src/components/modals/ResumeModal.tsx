@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, FileText, CheckCircle2, GraduationCap, Briefcase, Code, Award } from 'lucide-react';
+import { X, Download, FileText, CheckCircle2, GraduationCap, Briefcase, Code, Loader2 } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
-import html2pdf from 'html2pdf.js';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -13,21 +12,38 @@ interface ResumeModalProps {
 
 export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleDownloadPDF = () => {
-    if (!contentRef.current) return;
+  const handleDownloadPDF = async () => {
+    if (!contentRef.current || isGenerating) return;
 
-    const element = contentRef.current;
+    try {
+      setIsGenerating(true);
 
-    const opt = {
-      margin: 10,
-      filename: 'Muhammad_Shahbaz_Software_Engineer_Resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    };
+      // Dynamic import to prevent 'window is not defined' Next.js SSR build errors
+      const html2pdf = (await import('html2pdf.js')).default;
+      const element = contentRef.current;
 
-    html2pdf().set(opt).from(element).save();
+      const opt = {
+        margin: [10, 10, 10, 10] as [number, number, number, number],
+        filename: `${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`,
+        image: { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          letterRendering: true,
+        },
+        jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] as const },
+      };
+
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error('PDF Generation Error:', error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -60,10 +76,10 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               </div>
               <div>
                 <h3 className="text-xl font-bold font-display text-slate-900 dark:text-white">
-                  Muhammad Shahbaz — Resume Overview
+                  {PERSONAL_INFO.name} — Resume Overview
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Software Engineer • Full Stack &amp; Machine Learning Solutions
+                  {PERSONAL_INFO.title}
                 </p>
               </div>
             </div>
@@ -71,10 +87,15 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleDownloadPDF}
-                className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs shadow-md hover:opacity-95 transition-all"
+                disabled={isGenerating}
+                className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs shadow-md hover:opacity-95 disabled:opacity-50 transition-all"
               >
-                <Download className="w-4 h-4" />
-                <span>Download PDF</span>
+                {isGenerating ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Download className="w-4 h-4" />
+                )}
+                <span>{isGenerating ? 'Generating...' : 'Download PDF'}</span>
               </button>
               <button
                 onClick={onClose}
@@ -86,7 +107,10 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           </div>
 
           {/* Body Content */}
-          <div ref={contentRef} className="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900">
+          <div 
+            ref={contentRef} 
+            className="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900"
+          >
             {/* Header info box */}
             <div className="p-5 rounded-2xl bg-slate-100/70 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -97,7 +121,7 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               <div className="text-xs space-y-1 font-mono text-slate-600 dark:text-slate-400">
                 <p>📍 Location: {PERSONAL_INFO.location}</p>
                 <p>🔗 GitHub: @{PERSONAL_INFO.githubUsername}</p>
-                <p>🎓 Highest Degree: {PERSONAL_INFO.qualification}</p>
+                <p>🎓 Qualification: {PERSONAL_INFO.qualification}</p>
               </div>
             </div>
 

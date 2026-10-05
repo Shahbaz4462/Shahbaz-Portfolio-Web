@@ -30,13 +30,14 @@ export default function ScrollToTop() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="fixed bottom-6 right-6 z-50"
         >
           <Link
             href="/"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
             aria-label="Back to Home"
-            className="fixed bottom-6 right-6 z-50 p-3.5 rounded-full glass-panel shadow-lg shadow-primary/20 text-primary dark:text-cyan-400 border border-primary/20 dark:border-cyan-500/30 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300"
+            className="block p-3.5 rounded-full glass-panel shadow-lg shadow-primary/20 text-primary dark:text-cyan-400 border border-primary/20 dark:border-cyan-500/30 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300"
           >
             <ArrowUp className="w-5 h-5" />
           </Link>
