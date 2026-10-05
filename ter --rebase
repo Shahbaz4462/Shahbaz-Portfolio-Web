@@ -1,0 +1,5 @@
+[33m4454731[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Complete website updates
+[33m924d70b[m Convert portfolio to multi-page routing with new circular logo - Replace profile picture with new circular logo in header - Update favicon to use the new logo - Convert from single-page scrolling to multi-page navigation - Create separate routes for all sections - Update Navbar to use Next.js Link components - Update Footer navigation links - Update Hero section CTA buttons - Remove scroll snapping behavior - Fix CV PDF download with html2pdf.js - Update ScrollToTop to navigate to home page - Remove ScrollProgress component - Preserve all existing content and functionality
+[33ma61175c[m fix: move FormSubmit call to client-side browser — fixes prod Origin rejection on Vercel
+[33mf4cfea0[m fix: use real email in FormSubmit AJAX URL (hash is for HTML forms only), tested and working
+[33m0aced2c[m fix: use FormSubmit activated hash key and fix silent error masking in catch block
