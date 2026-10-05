@@ -5,13 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, Loader2, Mail, MessageSquare, User, FileText, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 
+// FormSubmit AJAX endpoint — uses real email, browser sends it so Origin = mshahbaz.me ✓
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/shahbaz04462@gmail.com';
+
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
-    honeypot: '', // Hidden field for bot prevention
+    honeypot: '',
   });
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -26,32 +29,54 @@ export default function ContactSection() {
     setStatus('sending');
     setErrorMessage('');
 
+    // Honeypot check — silently succeed for bots
+    if (formData.honeypot && formData.honeypot.trim() !== '') {
+      setStatus('success');
+      return;
+    }
+
     try {
-      const res = await fetch('/api/contact', {
+      // Submit directly from the browser to FormSubmit AJAX.
+      // This guarantees Origin: mshahbaz.me which FormSubmit requires.
+      const res = await fetch(FORMSUBMIT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: `[Portfolio Contact] ${formData.subject}`,
+          message: formData.message,
+          _replyto: formData.email,
+          _captcha: 'false',
+          _template: 'table',
+        }),
       });
 
       const data = await res.json();
 
-      if (data.success) {
+      // FormSubmit returns { "success": "true" } (string, not boolean)
+      if (res.ok && (data?.success === 'true' || data?.success === true)) {
         setStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
       } else {
+        console.error('FormSubmit error:', data);
         setStatus('error');
-        setErrorMessage(data.error || 'Failed to send message.');
+        setErrorMessage('Failed to send message. Please try again later.');
       }
     } catch (err) {
+      console.error('Network error:', err);
       setStatus('error');
-      setErrorMessage('Network error occurred. Please check your connection and try again.');
+      setErrorMessage('Network error. Please check your connection and try again.');
     }
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="min-h-screen py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <span className="text-xs font-mono font-semibold uppercase tracking-wider text-primary dark:text-cyan-400 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20">
@@ -66,7 +91,7 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Column: Direct Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -124,7 +149,7 @@ export default function ContactSection() {
           >
             <div className="p-8 sm:p-10 rounded-3xl glass-card border border-slate-200/80 dark:border-slate-800 relative">
               <form onSubmit={handleSubmit} className="space-y-6">
-                
+
                 {/* Honeypot field for anti-spam (hidden from real users) */}
                 <input
                   type="text"
@@ -239,7 +264,7 @@ export default function ContactSection() {
                         className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-medium flex items-center space-x-2"
                       >
                         <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                        <span>Message sent successfully!</span>
+                        <span>Message sent successfully! I'll get back to you within 24 hours.</span>
                       </motion.div>
                     )}
 

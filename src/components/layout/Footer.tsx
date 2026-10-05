@@ -3,15 +3,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Code2, Github, ArrowUp, Heart, Sun, Moon } from 'lucide-react';
+import { Code2, Github, ArrowUp, Sun, Moon } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
+import Link from 'next/link';
 
 export default function Footer() {
   const { theme, setTheme } = useTheme();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer className="relative border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/80 backdrop-blur-md pt-16 pb-12 overflow-hidden">
@@ -49,10 +46,10 @@ export default function Footer() {
               Quick Navigation
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
-              <li><a href="#hero" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Home</a></li>
-              <li><a href="#about" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">About Qualification</a></li>
-              <li><a href="#skills" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Technical Skills</a></li>
-              <li><a href="#projects" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Featured Projects</a></li>
+              <li><Link href="/" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Home</Link></li>
+              <li><Link href="/about" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">About Qualification</Link></li>
+              <li><Link href="/skills" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Technical Skills</Link></li>
+              <li><Link href="/projects" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Featured Projects</Link></li>
             </ul>
           </div>
 
@@ -62,9 +59,9 @@ export default function Footer() {
               Engineering & Contact
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
-              <li><a href="#experience" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Career Timeline</a></li>
-              <li><a href="#achievements" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Achievements</a></li>
-              <li><a href="#contact" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Contact Form</a></li>
+              <li><Link href="/experience" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Career Timeline</Link></li>
+              <li><Link href="/achievements" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Achievements</Link></li>
+              <li><Link href="/contact" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Contact Form</Link></li>
               <li>
                 <button
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -86,13 +83,13 @@ export default function Footer() {
             A project by MS Developers
           </p>
 
-          <button
-            onClick={scrollToTop}
+          <Link
+            href="/"
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full glass-panel hover:text-primary dark:hover:text-cyan-400 transition-colors border border-slate-200/80 dark:border-slate-800"
           >
             <span>Back to Top</span>
             <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          </Link>
         </div>
       </div>
     </footer>

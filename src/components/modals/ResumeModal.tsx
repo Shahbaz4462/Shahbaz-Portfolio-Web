@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, FileText, CheckCircle2, GraduationCap, Briefcase, Code, Award } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
+import html2pdf from 'html2pdf.js';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -11,6 +12,24 @@ interface ResumeModalProps {
 }
 
 export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = () => {
+    if (!contentRef.current) return;
+
+    const element = contentRef.current;
+
+    const opt = {
+      margin: 10,
+      filename: 'Muhammad_Shahbaz_Software_Engineer_Resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    };
+
+    html2pdf().set(opt).from(element).save();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -50,14 +69,13 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             </div>
 
             <div className="flex items-center space-x-3">
-              <a
-                href="/resume.pdf"
-                download="Muhammad_Shahbaz_Software_Engineer_Resume.pdf"
+              <button
+                onClick={handleDownloadPDF}
                 className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs shadow-md hover:opacity-95 transition-all"
               >
                 <Download className="w-4 h-4" />
                 <span>Download PDF</span>
-              </a>
+              </button>
               <button
                 onClick={onClose}
                 className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -68,7 +86,7 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           </div>
 
           {/* Body Content */}
-          <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-700 dark:text-slate-300">
+          <div ref={contentRef} className="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900">
             {/* Header info box */}
             <div className="p-5 rounded-2xl bg-slate-100/70 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>

@@ -4,7 +4,6 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import ScrollProgress from '@/components/ui/ScrollProgress';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 
@@ -95,6 +94,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
       <head>
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -103,7 +104,6 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 selection:bg-primary selection:text-white relative">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <LoadingScreen />
-          <ScrollProgress />
 
           <div className="relative z-10 flex flex-col min-h-screen">
             <Navbar />

@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Download, Terminal, Code, CheckCircle, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 import ResumeModal from '@/components/modals/ResumeModal';
+import Link from 'next/link';
 
 export default function HeroSection() {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   return (
-    <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section id="hero" className="relative min-h-screen pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
@@ -94,21 +95,21 @@ export default function HeroSection() {
               transition={{ delay: 0.6 }}
               className="flex flex-wrap items-center gap-4 pt-2"
             >
-              <a
-                href="#projects"
+              <Link
+                href="/projects"
                 className="flex items-center space-x-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm shadow-xl shadow-primary/25 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
               >
                 <span>View Projects</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="flex items-center space-x-2 px-6 py-3.5 rounded-2xl glass-panel text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-300/80 dark:border-slate-700/80 hover:border-primary dark:hover:border-cyan-400 hover:text-primary dark:hover:text-cyan-400 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
               >
                 <Sparkles className="w-4 h-4 text-cyan-500" />
                 <span>Contact Me</span>
-              </a>
+              </Link>
 
               <button
                 onClick={() => setIsResumeModalOpen(true)}

@@ -15,7 +15,7 @@ const ICON_MAP = {
 
 export default function TimelineSection() {
   return (
-    <section id="experience" className="py-20 relative">
+    <section id="experience" className="min-h-screen py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

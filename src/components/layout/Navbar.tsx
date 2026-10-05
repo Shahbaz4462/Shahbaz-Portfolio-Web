@@ -3,23 +3,25 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Sun, Moon, Menu, X, Code2, Sparkles } from 'lucide-react';
+import { Sun, Moon, Menu, X, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Achievements', href: '#achievements' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Achievements', href: '/achievements' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -27,26 +29,18 @@ export default function Navbar() {
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'achievements', 'contact'];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname === href;
+  };
 
   return (
     <header
@@ -60,32 +54,36 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a
-            href="#hero"
+            href="/"
             className="flex items-center space-x-2.5 group focus:outline-none"
           >
-            <div className="p-2 rounded-xl bg-gradient-to-tr from-primary to-accent text-white shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
-              <Code2 className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
+              <img
+                src="/logo.png"
+                alt="mshahbaz.me"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">
-              Shahbaz<span className="text-primary font-mono text-sm ml-1">.dev</span>
+              mshahbaz<span className="text-primary font-mono text-sm ml-1">.me</span>
             </span>
           </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1 glass-panel px-4 py-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/80 shadow-sm">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+              const active = isActive(item.href);
               return (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   className={`relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                    isActive
+                    active
                       ? 'text-primary dark:text-cyan-400 font-semibold'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  {isActive && (
+                  {active && (
                     <motion.div
                       layoutId="activeNavTab"
                       className="absolute inset-0 bg-primary/10 dark:bg-cyan-500/15 rounded-full -z-10"
@@ -93,23 +91,13 @@ export default function Navbar() {
                     />
                   )}
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
 
-          {/* Right Utilities (Top-Right Branding, Theme Toggle & CTA) */}
+          {/* Right Utilities (Theme Toggle & CTA) */}
           <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Top-Right Branding */}
-            <div className="text-right leading-tight select-none">
-              <div className="font-display font-bold text-xs sm:text-sm text-slate-900 dark:text-white tracking-tight">
-                Shahbaz<span className="text-primary font-mono text-xs">.dev</span>
-              </div>
-              <div className="text-[10px] sm:text-xs font-semibold text-primary dark:text-cyan-400 tracking-wide">
-                MS Developers
-              </div>
-            </div>
-
             {/* Theme Toggle Button */}
             {mounted && (
               <button
@@ -122,13 +110,13 @@ export default function Navbar() {
             )}
 
             {/* Contact CTA */}
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="hidden sm:inline-flex items-center space-x-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white rounded-full bg-gradient-to-r from-primary to-accent hover:opacity-95 shadow-md shadow-primary/25 transition-all duration-300 hover:scale-105"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Hire Me</span>
-            </a>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
@@ -153,24 +141,24 @@ export default function Navbar() {
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {NAV_ITEMS.map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-4 py-2.5 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-xl transition-colors"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <div className="pt-2">
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm shadow-md"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Get In Touch</span>
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>
