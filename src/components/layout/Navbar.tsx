@@ -1,167 +1,248 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Sun, Moon, Menu, X, Sparkles } from 'lucide-react';
-import { PERSONAL_INFO } from '@/data/portfolioData';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { label: 'About', href: '/about' },
-  { label: 'Skills', href: '/skills' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Achievements', href: '/achievements' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Home',          href: '#home' },
+  { label: 'About',         href: '#about' },
+  { label: 'Qualification', href: '#qualification' },
+  { label: 'Experience',    href: '#experience' },
+  { label: 'Projects',      href: '#projects' },
+  { label: 'Skills',        href: '#skills' },
+  { label: 'Achievements',  href: '#achievements' },
+  { label: 'Contact',       href: '#contact' },
 ];
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
-  const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted]             = useState(false);
+  const [isScrolled, setIsScrolled]       = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Smooth-scroll that respects the sticky header height
+  const scrollTo = useCallback((href: string) => {
+    setMobileMenuOpen(false);
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) {
+      const headerHeight = 72;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, []);
 
   useEffect(() => {
     setMounted(true);
+    const sectionIds = NAV_ITEMS.map(i => i.href.replace('#', ''));
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      const scrollMid = window.scrollY + window.innerHeight * 0.35;
+      let current = sectionIds[0];
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollMid) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
-    }
-    return pathname === href;
-  };
+  // ESC key closes mobile menu
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileMenuOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'py-3 glass-nav shadow-lg shadow-black/5 dark:shadow-black/30'
-          : 'py-5 bg-transparent'
+        isScrolled ? 'nav-scrolled' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="/"
-            className="flex items-center space-x-2.5 group focus:outline-none"
-          >
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
-              <img
-                src="/logo.png"
-                alt="mshahbaz.me"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">
-              mshahbaz<span className="text-primary font-mono text-sm ml-1">.me</span>
-            </span>
-          </a>
+        <div
+          className={`flex items-center justify-between transition-all duration-300 ${
+            isScrolled ? 'h-16' : 'h-20'
+          }`}
+        >
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1 glass-panel px-4 py-1.5 rounded-full border border-slate-200/60 dark:border-slate-800/80 shadow-sm">
+          {/* ── Brand ──────────────────────────── */}
+          <button
+            onClick={() => scrollTo('#home')}
+            aria-label="Back to top"
+            className="flex items-center focus:outline-none group"
+          >
+            <span className="font-display font-semibold text-[15px] tracking-tight text-slate-900 dark:text-white group-hover:text-primary dark:group-hover:text-cyan-400 transition-colors duration-200">
+              mshahbaz
+            </span>
+            <span className="font-mono text-[13px] text-primary dark:text-cyan-400">.me</span>
+          </button>
+
+          {/* ── Desktop Nav ─────────────────────── */}
+          <nav
+            className="hidden lg:flex items-center space-x-0.5"
+            aria-label="Primary navigation"
+          >
             {NAV_ITEMS.map((item) => {
-              const active = isActive(item.href);
+              const isActive = activeSection === item.href.replace('#', '');
               return (
-                <Link
+                <button
                   key={item.href}
-                  href={item.href}
-                  className={`relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                    active
-                      ? 'text-primary dark:text-cyan-400 font-semibold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  onClick={() => scrollTo(item.href)}
+                  className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 focus:outline-none ${
+                    isActive
+                      ? 'text-slate-900 dark:text-white'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  {active && (
-                    <motion.div
-                      layoutId="activeNavTab"
-                      className="absolute inset-0 bg-primary/10 dark:bg-cyan-500/15 rounded-full -z-10"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navIndicator"
+                      className="absolute inset-0 bg-slate-100 dark:bg-slate-800/80 rounded-lg -z-10"
+                      transition={{ type: 'spring', stiffness: 350, damping: 32 }}
                     />
                   )}
                   {item.label}
-                </Link>
+                </button>
               );
             })}
           </nav>
 
-          {/* Right Utilities (Theme Toggle & CTA) */}
-          <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Theme Toggle Button */}
+          {/* ── Right Controls ───────────────────── */}
+          <div className="flex items-center space-x-1.5">
+            {/* Theme toggle */}
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle Theme"
-                className="p-2.5 rounded-full glass-panel text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-colors duration-200 border border-slate-200/60 dark:border-slate-800"
+                aria-label="Toggle theme"
+                className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors duration-200 focus:outline-none"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {theme === 'dark'
+                  ? <Sun style={{ width: '1.0625rem', height: '1.0625rem' }} />
+                  : <Moon style={{ width: '1.0625rem', height: '1.0625rem' }} />
+                }
               </button>
             )}
 
-            {/* Contact CTA */}
-            <Link
-              href="/contact"
-              className="hidden sm:inline-flex items-center space-x-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white rounded-full bg-gradient-to-r from-primary to-accent hover:opacity-95 shadow-md shadow-primary/25 transition-all duration-300 hover:scale-105"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Hire Me</span>
-            </Link>
-
-            {/* Mobile Menu Button */}
+            {/* Hire Me CTA — visible from sm upward */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Open Mobile Menu"
-              className="md:hidden p-2.5 rounded-full glass-panel text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-800"
+              onClick={() => scrollTo('#contact')}
+              className="hidden sm:inline-flex items-center px-4 py-2 text-[13px] font-medium rounded-lg text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors duration-200 focus:outline-none"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              Hire Me
+            </button>
+
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setMobileMenuOpen(prev => !prev)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              className="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors duration-200 focus:outline-none"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileMenuOpen ? (
+                  <motion.span
+                    key="x"
+                    initial={{ rotate: -45, opacity: 0 }}
+                    animate={{ rotate: 0,   opacity: 1 }}
+                    exit={{   rotate:  45,  opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="block"
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate:  45, opacity: 0 }}
+                    animate={{ rotate:  0,  opacity: 1 }}
+                    exit={{   rotate: -45,  opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="block"
+                  >
+                    <Menu className="w-5 h-5" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* ── Mobile Drawer ───────────────────────── */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel border-b border-slate-200/80 dark:border-slate-800/80 overflow-hidden"
-          >
-            <div className="px-4 pt-4 pb-6 space-y-2">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-2.5 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-xl transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="pt-2">
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm shadow-md"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Get In Touch</span>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
+          <>
+            {/* Dimmed backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{   opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 top-16 bg-black/20 dark:bg-black/50 backdrop-blur-sm lg:hidden -z-10"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Drawer panel */}
+            <motion.div
+              key="drawer"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y:  0 }}
+              exit={{   opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="lg:hidden absolute top-full left-0 right-0 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-[#0B0F19]/97 backdrop-blur-lg"
+            >
+              <nav
+                className="max-w-7xl mx-auto px-4 py-3 space-y-0.5"
+                aria-label="Mobile navigation"
+              >
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeSection === item.href.replace('#', '');
+                  return (
+                    <button
+                      key={item.href}
+                      onClick={() => scrollTo(item.href)}
+                      className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-150 focus:outline-none ${
+                        isActive
+                          ? 'bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+
+                <div className="pt-2 pb-1 px-0">
+                  <button
+                    onClick={() => scrollTo('#contact')}
+                    className="w-full py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-medium hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors duration-200 focus:outline-none"
+                  >
+                    Get In Touch
+                  </button>
+                </div>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

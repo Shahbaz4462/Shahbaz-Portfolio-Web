@@ -20,7 +20,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shahbaz.dev'),
+  metadataBase: new URL('https://mshahbaz.me'),
   title: 'Muhammad Shahbaz | Software Engineer Portfolio',
   description: 'Passionate Software Engineer focused on building scalable web applications, modern user interfaces, and user-friendly digital experiences.',
   keywords: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Muhammad Shahbaz | Software Engineer Portfolio',
     description: 'Passionate Software Engineer building scalable web applications, modern UIs, and machine learning systems.',
-    url: 'https://shahbaz.dev',
+    url: 'https://mshahbaz.me',
     siteName: 'Muhammad Shahbaz Portfolio',
     type: 'website',
     images: [

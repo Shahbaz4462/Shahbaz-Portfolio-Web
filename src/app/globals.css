@@ -56,6 +56,24 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* ── Scrolled navbar state ──────────────────────────── */
+.nav-scrolled {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.80);
+  box-shadow: 0 1px 12px -4px rgba(0,0,0,0.06);
+}
+
+.dark .nav-scrolled {
+  background: rgba(11, 15, 25, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(31, 41, 55, 0.60);
+  box-shadow: 0 1px 12px -4px rgba(0,0,0,0.40);
+}
+
+/* Legacy alias kept for any remaining usage */
 .glass-nav {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
@@ -68,6 +86,19 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(31, 41, 55, 0.6);
+}
+
+/* ── Sticky header offset for anchor links ──────────── */
+section[id],
+div[id="home"],
+div[id="about"],
+div[id="qualification"],
+div[id="experience"],
+div[id="projects"],
+div[id="skills"],
+div[id="achievements"],
+div[id="contact"] {
+  scroll-margin-top: 80px;
 }
 
 .glass-card {

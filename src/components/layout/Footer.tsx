@@ -5,10 +5,13 @@ import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Code2, Github, ArrowUp, Sun, Moon } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
-import Link from 'next/link';
 
 export default function Footer() {
   const { theme, setTheme } = useTheme();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="relative border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/80 backdrop-blur-md pt-16 pb-12 overflow-hidden">
@@ -46,22 +49,23 @@ export default function Footer() {
               Quick Navigation
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
-              <li><Link href="/" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Home</Link></li>
-              <li><Link href="/about" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">About Qualification</Link></li>
-              <li><Link href="/skills" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Technical Skills</Link></li>
-              <li><Link href="/projects" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Featured Projects</Link></li>
+              <li><a href="#home" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Home</a></li>
+              <li><a href="#about" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">About</a></li>
+              <li><a href="#qualification" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Qualification</a></li>
+              <li><a href="#skills" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Technical Skills</a></li>
+              <li><a href="#projects" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Featured Projects</a></li>
             </ul>
           </div>
 
           {/* Col 3: Experience & Contact */}
           <div>
             <h4 className="font-display font-semibold text-slate-900 dark:text-white text-sm uppercase tracking-wider mb-4">
-              Engineering & Contact
+              Engineering &amp; Contact
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
-              <li><Link href="/experience" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Career Timeline</Link></li>
-              <li><Link href="/achievements" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Achievements</Link></li>
-              <li><Link href="/contact" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Contact Form</Link></li>
+              <li><a href="#experience" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Career Timeline</a></li>
+              <li><a href="#achievements" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Achievements</a></li>
+              <li><a href="#contact" className="hover:text-primary dark:hover:text-cyan-400 transition-colors">Contact Form</a></li>
               <li>
                 <button
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -80,16 +84,16 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.</p>
 
           <p className="text-slate-500 dark:text-slate-400">
-            A project by MS Developers
+            Built with Next.js &amp; Tailwind CSS
           </p>
 
-          <Link
-            href="/"
+          <button
+            onClick={scrollToTop}
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full glass-panel hover:text-primary dark:hover:text-cyan-400 transition-colors border border-slate-200/80 dark:border-slate-800"
           >
             <span>Back to Top</span>
             <ArrowUp className="w-3.5 h-3.5" />
-          </Link>
+          </button>
         </div>
       </div>
     </footer>
