@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2 } from 'lucide-react';
 
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
@@ -29,9 +28,13 @@ export default function LoadingScreen() {
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center space-y-4"
           >
-            <div className="relative p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl shadow-primary/30">
-              <Code2 className="w-12 h-12 text-primary animate-pulse" />
-              <div className="absolute inset-0 rounded-2xl border border-primary/40 animate-ping opacity-25" />
+            <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl shadow-primary/30">
+              <img
+                src="/profile.jpg"
+                alt="Muhammad Shahbaz"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 rounded-2xl border border-primary/40 animate-ping opacity-25 pointer-events-none" />
             </div>
 
             <motion.h1 
