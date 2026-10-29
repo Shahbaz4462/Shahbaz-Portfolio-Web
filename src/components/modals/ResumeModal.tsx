@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, FileText, CheckCircle2, GraduationCap, Briefcase, Code, Loader2 } from 'lucide-react';
+import { X, Download, FileText, CheckCircle2, GraduationCap, Briefcase, Code } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/portfolioData';
 
 interface ResumeModalProps {
@@ -12,37 +12,24 @@ interface ResumeModalProps {
 
 export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownloadPDF = async () => {
-    if (!contentRef.current || isGenerating) return;
-
+  const handleDownloadPDF = () => {
+    setIsDownloading(true);
     try {
-      setIsGenerating(true);
-
-      // Dynamic import to prevent 'window is not defined' Next.js SSR build errors
-      const html2pdf = (await import('html2pdf.js')).default;
-      const element = contentRef.current;
-
-      const opt = {
-        margin: [10, 10, 10, 10] as [number, number, number, number],
-        filename: `${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`,
-        image: { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          letterRendering: true,
-        },
-        jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] as const },
-      };
-
-      await html2pdf().set(opt).from(element).save();
+      const link = document.createElement('a');
+      link.href = '/resume.pdf';
+      link.download = `${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
-      console.error('PDF Generation Error:', error);
+      console.error('Resume download error:', error);
+      window.open('/resume.pdf', '_blank');
     } finally {
-      setIsGenerating(false);
+      setTimeout(() => setIsDownloading(false), 800);
     }
   };
 
@@ -87,15 +74,11 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleDownloadPDF}
-                disabled={isGenerating}
+                disabled={isDownloading}
                 className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs shadow-md hover:opacity-95 disabled:opacity-50 transition-all"
               >
-                {isGenerating ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Download className="w-4 h-4" />
-                )}
-                <span>{isGenerating ? 'Generating...' : 'Download PDF'}</span>
+                <Download className="w-4 h-4" />
+                <span>{isDownloading ? 'Downloading...' : 'Download PDF'}</span>
               </button>
               <button
                 onClick={onClose}
