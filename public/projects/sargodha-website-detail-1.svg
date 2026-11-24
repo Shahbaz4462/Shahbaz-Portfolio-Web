@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <circle cx="180" cy="140" r="230" fill="#F59E0B" opacity="0.1" filter="blur(60px)" />
+  <circle cx="1030" cy="540" r="230" fill="#E11D48" opacity="0.07" filter="blur(60px)" />
+
+  <rect x="60" y="40" width="1080" height="595" rx="16" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" />
+
+  <!-- Admin sidebar -->
+  <rect x="60" y="40" width="250" height="595" rx="16" fill="rgba(30,41,59,0.55)" />
+  <rect x="92" y="72" width="36" height="36" rx="9" fill="url(#gold)" />
+  <text x="110" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="bold" fill="#451A03">S</text>
+  <text x="140" y="97" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#F8FAFC">Admin Panel</text>
+  <rect x="84" y="140" width="202" height="42" rx="9" fill="rgba(245,158,11,0.16)" />
+  <text x="104" y="167" font-family="Arial, sans-serif" font-size="15" fill="#FCD34D">▦&#160;&#160;Dashboard</text>
+  <text x="104" y="213" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">▤&#160;&#160;Products</text>
+  <text x="104" y="259" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">▥&#160;&#160;Categories</text>
+  <text x="104" y="305" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">▧&#160;&#160;Gallery</text>
+  <text x="104" y="351" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">◉&#160;&#160;Team members</text>
+  <text x="104" y="397" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">✉&#160;&#160;Inquiries</text>
+  <text x="104" y="443" font-family="Arial, sans-serif" font-size="15" fill="#94A3B8">⚙&#160;&#160;Site settings</text>
+  <rect x="84" y="540" width="202" height="40" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" />
+  <text x="185" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#CBD5E1">JWT-protected login</text>
+
+  <!-- Main area -->
+  <text x="350" y="105" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC">Content overview</text>
+  <text x="350" y="132" font-family="Arial, sans-serif" font-size="14" fill="#94A3B8">Everything on the public site is edited here — no code needed.</text>
+
+  <rect x="350" y="160" width="240" height="110" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+  <text x="374" y="200" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">PRODUCTS</text>
+  <text x="374" y="240" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#F8FAFC">Catalogue</text>
+  <rect x="614" y="160" width="240" height="110" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+  <text x="638" y="200" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">GALLERY</text>
+  <text x="638" y="240" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#F8FAFC">Media library</text>
+  <rect x="878" y="160" width="222" height="110" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+  <text x="902" y="200" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">INQUIRIES</text>
+  <text x="902" y="240" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#F59E0B">New messages</text>
+
+  <!-- Table mock -->
+  <rect x="350" y="300" width="750" height="270" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" />
+  <rect x="350" y="300" width="750" height="48" rx="12" fill="rgba(30,41,59,0.7)" />
+  <text x="374" y="330" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">PRODUCT</text>
+  <text x="640" y="330" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">CATEGORY</text>
+  <text x="830" y="330" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">PRICE</text>
+  <text x="990" y="330" font-family="Arial, sans-serif" font-size="13" fill="#94A3B8">STATUS</text>
+  <text x="374" y="386" font-family="Arial, sans-serif" font-size="15" fill="#E2E8F0">Barfi (1 kg)</text>
+  <text x="640" y="386" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Mithai</text>
+  <text x="830" y="386" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Rs / kg</text>
+  <rect x="982" y="368" width="76" height="24" rx="12" fill="rgba(16,185,129,0.15)" />
+  <text x="1020" y="384" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#34D399">Live</text>
+  <line x1="374" y1="406" x2="1076" y2="406" stroke="rgba(255,255,255,0.07)" />
+  <text x="374" y="442" font-family="Arial, sans-serif" font-size="15" fill="#E2E8F0">Chocolate Cake (2 lb)</text>
+  <text x="640" y="442" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Cakes</text>
+  <text x="830" y="442" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Rs / cake</text>
+  <rect x="982" y="424" width="76" height="24" rx="12" fill="rgba(16,185,129,0.15)" />
+  <text x="1020" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#34D399">Live</text>
+  <line x1="374" y1="462" x2="1076" y2="462" stroke="rgba(255,255,255,0.07)" />
+  <text x="374" y="498" font-family="Arial, sans-serif" font-size="15" fill="#E2E8F0">Mix Biscuits (500 g)</text>
+  <text x="640" y="498" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Bakery</text>
+  <text x="830" y="498" font-family="Arial, sans-serif" font-size="15" fill="#CBD5E1">Rs / pack</text>
+  <rect x="982" y="480" width="76" height="24" rx="12" fill="rgba(245,158,11,0.15)" />
+  <text x="1020" y="496" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FBBF24">Draft</text>
+  <text x="374" y="546" font-family="Arial, sans-serif" font-size="13" fill="#64748B">PostgreSQL + Drizzle ORM · media in Supabase Storage</text>
+</svg>

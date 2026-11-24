@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#064E3B" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+    <linearGradient id="limeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#84CC16" />
+      <stop offset="100%" stop-color="#C8F135" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <circle cx="950" cy="140" r="250" fill="#10B981" opacity="0.14" filter="blur(60px)" />
+  <circle cx="180" cy="520" r="230" fill="#C8F135" opacity="0.08" filter="blur(60px)" />
+
+  <!-- Outer Frame -->
+  <rect x="60" y="40" width="1080" height="595" rx="16" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" />
+
+  <!-- Browser chrome -->
+  <rect x="60" y="40" width="1080" height="60" fill="rgba(30, 41, 59, 0.7)" />
+  <circle cx="95" cy="70" r="6" fill="#F87171" />
+  <circle cx="120" cy="70" r="6" fill="#FBBF24" />
+  <circle cx="145" cy="70" r="6" fill="#34D399" />
+  <rect x="330" y="54" width="540" height="32" rx="16" fill="rgba(15,23,42,0.8)" />
+  <text x="600" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#94A3B8">agrosight-crop-disease-prediction-a.vercel.app</text>
+
+  <!-- Brand row -->
+  <rect x="100" y="130" width="34" height="34" rx="8" fill="url(#limeGrad)" />
+  <path d="M117 152 C108 143 110 134 117 130 C124 134 126 143 117 152 Z" fill="#0B1A12" />
+  <text x="148" y="155" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC">AgroSight</text>
+  <rect x="880" y="128" width="100" height="36" rx="18" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1" />
+  <text x="930" y="151" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#34D399">EN · اردو · پنجابی</text>
+
+  <!-- Crop selector chips -->
+  <rect x="100" y="196" width="130" height="44" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" />
+  <text x="165" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#CBD5E1">Wheat</text>
+  <rect x="246" y="196" width="130" height="44" rx="10" fill="url(#greenGrad)" />
+  <text x="311" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#052E22">Cotton</text>
+  <rect x="392" y="196" width="130" height="44" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" />
+  <text x="457" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#CBD5E1">Rice</text>
+
+  <!-- Scan panel: leaf in a scan frame -->
+  <rect x="100" y="270" width="422" height="300" rx="14" fill="rgba(6, 78, 59, 0.35)" stroke="rgba(52,211,153,0.35)" stroke-width="1.5" />
+  <path d="M311 520 C230 470 215 380 245 300 C320 330 380 300 395 285 C405 380 390 480 311 520 Z" fill="#14532D" stroke="#34D399" stroke-width="2" />
+  <path d="M311 520 C315 450 330 370 392 292" stroke="#34D399" stroke-width="2" fill="none" opacity="0.7" />
+  <circle cx="290" cy="400" r="16" fill="#F59E0B" opacity="0.55" />
+  <circle cx="335" cy="350" r="11" fill="#F59E0B" opacity="0.45" />
+  <circle cx="270" cy="455" r="9" fill="#F59E0B" opacity="0.4" />
+  <!-- scan corners -->
+  <path d="M126 296 L126 276 L146 276" stroke="#C8F135" stroke-width="4" fill="none" />
+  <path d="M476 276 L496 276 L496 296" stroke="#C8F135" stroke-width="4" fill="none" />
+  <path d="M126 524 L126 544 L146 544" stroke="#C8F135" stroke-width="4" fill="none" />
+  <path d="M476 544 L496 544 L496 524" stroke="#C8F135" stroke-width="4" fill="none" />
+  <rect x="126" y="404" width="370" height="3" fill="#C8F135" opacity="0.8" />
+
+  <!-- Result panel -->
+  <rect x="560" y="270" width="540" height="300" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+  <text x="592" y="312" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="#34D399">DIAGNOSIS · VERY SURE</text>
+  <text x="592" y="352" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#F8FAFC">Cotton — Bacterial Blight</text>
+  <text x="592" y="386" font-family="Arial, sans-serif" font-size="14" fill="#94A3B8">Confidence</text>
+  <rect x="592" y="398" width="476" height="10" rx="5" fill="rgba(255,255,255,0.1)" />
+  <rect x="592" y="398" width="452" height="10" rx="5" fill="url(#greenGrad)" />
+  <text x="592" y="446" font-family="Arial, sans-serif" font-size="14" fill="#94A3B8">Damaged area · severity</text>
+  <rect x="592" y="458" width="476" height="10" rx="5" fill="rgba(255,255,255,0.1)" />
+  <rect x="592" y="458" width="128" height="10" rx="5" fill="#F59E0B" />
+  <rect x="592" y="492" width="150" height="38" rx="8" fill="rgba(200,241,53,0.12)" stroke="rgba(200,241,53,0.4)" />
+  <text x="667" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#C8F135">Treatment plan</text>
+  <rect x="758" y="492" width="150" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" />
+  <text x="833" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#CBD5E1">Listen · سنو</text>
+  <rect x="924" y="492" width="144" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" />
+  <text x="996" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#CBD5E1">Share result</text>
+</svg>
