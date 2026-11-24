@@ -33,6 +33,9 @@ export default function Navbar() {
   const scrollTo = useCallback((href: string) => {
     setMobileMenuOpen(false);
     const id = href.replace('#', '');
+    // Highlight the clicked item right away; the scroll-spy below
+    // agrees with this once the scroll settles.
+    setActiveSection(id);
     const el = document.getElementById(id);
     if (el) {
       const headerHeight = 72;
@@ -48,13 +51,25 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const scrollMid = window.scrollY + window.innerHeight * 0.35;
+      // A section is active once its top reaches just under the
+      // sticky header. (The old line sat 35% down the viewport, so
+      // a short section like About was skipped entirely — clicking
+      // About landed the highlight on Qualification instead.)
+      const spyLine = window.scrollY + 72 + 8;
       let current = sectionIds[0];
       for (const id of sectionIds) {
         const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollMid) {
+        // Document-relative top — offsetTop is relative to the
+        // offsetParent, which differs for the #qualification card
+        // nested inside the positioned About section.
+        if (el && el.getBoundingClientRect().top + window.scrollY <= spyLine) {
           current = id;
         }
+      }
+      // At the very bottom the last section wins — the page cannot
+      // always scroll far enough for its top to reach the spy line.
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        current = sectionIds[sectionIds.length - 1];
       }
       setActiveSection(current);
     };
