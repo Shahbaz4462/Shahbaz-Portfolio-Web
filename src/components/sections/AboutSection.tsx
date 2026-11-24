@@ -46,8 +46,11 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* Qualification Highlight Card */}
+        {/* Qualification Highlight Card — carries the
+            #qualification anchor for the navbar */}
         <motion.div
+          id="qualification"
+          style={{ scrollMarginTop: '80px' }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
