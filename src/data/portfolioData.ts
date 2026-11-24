@@ -22,6 +22,36 @@ export const PERSONAL_INFO = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "agrosight",
+    title: "AgroSight — AI Crop Disease Diagnosis",
+    shortDescription: "A serverless web app that diagnoses crop diseases from a single leaf photo — it identifies the crop and disease, then shows the treatment, severity and prevention steps in English, Urdu, Roman Urdu and Punjabi.",
+    fullDescription: "AgroSight is a serverless crop-disease diagnosis platform for cotton, wheat and rice, built as a final-year project and presented at the Honhaar PINTEC Expo 2026. A gatekeeper-and-specialist deep-learning cascade first confirms the photo contains a leaf, then identifies the crop, then runs the per-crop disease model — everything runs in the farmer's browser with TensorFlow.js, so there is no server cost and scans work on low-end phones. Every result carries a sourced treatment plan, a damaged-area severity estimate, and an outcome loop that compares repeat scans of the same field.",
+    image: "/projects/agrosight-preview.svg",
+    screenshots: [
+      "/projects/agrosight-preview.svg",
+      "/projects/agrosight-detail-1.svg",
+      "/projects/agrosight-detail-2.svg"
+    ],
+    category: "Machine Learning",
+    techStack: ["Next.js", "TypeScript", "TensorFlow.js", "MobileNet", "Tailwind CSS", "Vercel"],
+    features: [
+      "Three-step gatekeeper cascade: leaf check → crop identification → disease diagnosis",
+      "19 disease classes across cotton, wheat and rice, each with a sourced treatment plan",
+      "Runs 100% in the browser (TensorFlow.js) — fully serverless, zero backend cost",
+      "Damage severity estimate with a damaged-area map on every diseased scan",
+      "Four languages — English, Urdu, Roman Urdu and Punjabi — plus a voice-only mode",
+      "Daily weather alerts for the farmer's own fields via web push notifications"
+    ],
+    challengesSolved: [
+      "Designed the cascade so an uncertain photo returns an honest 'Not sure' instead of a confident wrong disease — critical when the wrong treatment can damage a whole crop.",
+      "Kept the whole product serverless (in-browser models, Vercel Cron and a free serverless database) so it stays free to run at any scale."
+    ],
+    architectureOverview: "Next.js on Vercel with client-side TensorFlow.js graph models — one shared leaf+crop gatekeeper plus a specialist disease model per crop — per-crop treatment data as static JSON, and Vercel Cron with Upstash Redis powering the optional weather push alerts.",
+    liveDemoUrl: "https://agrosight-crop-disease-prediction-a.vercel.app/",
+    githubUrl: "https://github.com/Shahbaz4462/AgroSight-Crop-Disease-Prediction",
+    featured: true
+  },
+  {
     id: "e-blood-bank",
     title: "E-Blood Bank Management System",
     shortDescription: "A complete blood bank management platform where donors, recipients, and organizations can efficiently manage blood donations, requests, and inventories with an intuitive interface.",
@@ -79,6 +109,36 @@ export const PROJECTS: Project[] = [
     architectureOverview: "Built using React & TypeScript with Zustand/Context API state management for atomic billing updates, leveraging browser LocalStorage for offline persistence and Tailwind CSS for rapid responsive styling.",
     liveDemoUrl: "https://sargodha-sweets.vercel.app/",
     githubUrl: "https://github.com/Shahbaz4462/Billing-System",
+    featured: true
+  },
+  {
+    id: "sargodha-sweets-website",
+    title: "Sargodha Sweets & Bakers — Website & Admin CMS",
+    shortDescription: "The official website of Sargodha Sweets & Bakers with a full admin CMS — products, categories, gallery, team and customer inquiries are all managed from a protected admin panel.",
+    fullDescription: "A complete business website and content-management system for Sargodha Sweets & Bakers (since 1990). The public site showcases the product range, gallery and the bakery's story, while a JWT-protected admin panel lets the owners manage products, categories, gallery images, team members, business settings and customer inquiries — backed by PostgreSQL with a Drizzle ORM data layer and Supabase-hosted media storage.",
+    image: "/projects/sargodha-website-preview.svg",
+    screenshots: [
+      "/projects/sargodha-website-preview.svg",
+      "/projects/sargodha-website-detail-1.svg",
+      "/projects/sargodha-website-detail-2.svg"
+    ],
+    category: "Full Stack",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Vercel"],
+    features: [
+      "Protected admin CMS for products, categories, gallery, team and site settings",
+      "Customer inquiry management directly from the admin panel",
+      "PostgreSQL database with Drizzle ORM and checked-in schema migrations",
+      "Supabase Storage media uploads via short-lived signed URLs",
+      "JWT-secured admin authentication with a seeded first-run setup",
+      "Responsive public storefront with the bakery's full product showcase"
+    ],
+    challengesSolved: [
+      "Designed the data layer so the same codebase runs on an embedded local database in development and hosted PostgreSQL (Supabase) in production.",
+      "Kept media uploads fast and safe: files travel directly from the browser to storage through short-lived signed URLs, so the server never proxies an upload."
+    ],
+    architectureOverview: "Next.js App Router with a PostgreSQL + Drizzle ORM data layer, JWT-based admin sessions and Supabase Storage for persistent media; deployed on Vercel.",
+    liveDemoUrl: "https://sargodha-sweets-and-bakers-website.vercel.app/",
+    githubUrl: "https://github.com/Shahbaz4462/Sargodha-Sweets-and-Bakers-Website",
     featured: true
   },
   {
