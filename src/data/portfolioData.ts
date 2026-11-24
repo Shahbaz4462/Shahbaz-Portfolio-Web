@@ -52,6 +52,36 @@ export const PROJECTS: Project[] = [
     featured: true
   },
   {
+    id: "sargodha-sweets-website",
+    title: "Sargodha Sweets & Bakers — Website & Admin CMS",
+    shortDescription: "The official website of Sargodha Sweets & Bakers with a full admin CMS — products, categories, gallery, team and customer inquiries are all managed from a protected admin panel.",
+    fullDescription: "A complete business website and content-management system for Sargodha Sweets & Bakers (since 1990). The public site showcases the product range, gallery and the bakery's story, while a JWT-protected admin panel lets the owners manage products, categories, gallery images, team members, business settings and customer inquiries — backed by PostgreSQL with a Drizzle ORM data layer and Supabase-hosted media storage.",
+    image: "/projects/sargodha-website-preview.svg",
+    screenshots: [
+      "/projects/sargodha-website-preview.svg",
+      "/projects/sargodha-website-detail-1.svg",
+      "/projects/sargodha-website-detail-2.svg"
+    ],
+    category: "Full Stack",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Vercel"],
+    features: [
+      "Protected admin CMS for products, categories, gallery, team and site settings",
+      "Customer inquiry management directly from the admin panel",
+      "PostgreSQL database with Drizzle ORM and checked-in schema migrations",
+      "Supabase Storage media uploads via short-lived signed URLs",
+      "JWT-secured admin authentication with a seeded first-run setup",
+      "Responsive public storefront with the bakery's full product showcase"
+    ],
+    challengesSolved: [
+      "Designed the data layer so the same codebase runs on an embedded local database in development and hosted PostgreSQL (Supabase) in production.",
+      "Kept media uploads fast and safe: files travel directly from the browser to storage through short-lived signed URLs, so the server never proxies an upload."
+    ],
+    architectureOverview: "Next.js App Router with a PostgreSQL + Drizzle ORM data layer, JWT-based admin sessions and Supabase Storage for persistent media; deployed on Vercel.",
+    liveDemoUrl: "https://sargodha-sweets-and-bakers-website.vercel.app/",
+    githubUrl: "https://github.com/Shahbaz4462/Sargodha-Sweets-and-Bakers-Website",
+    featured: true
+  },
+  {
     id: "e-blood-bank",
     title: "E-Blood Bank Management System",
     shortDescription: "A complete blood bank management platform where donors, recipients, and organizations can efficiently manage blood donations, requests, and inventories with an intuitive interface.",
@@ -109,36 +139,6 @@ export const PROJECTS: Project[] = [
     architectureOverview: "Built using React & TypeScript with Zustand/Context API state management for atomic billing updates, leveraging browser LocalStorage for offline persistence and Tailwind CSS for rapid responsive styling.",
     liveDemoUrl: "https://sargodha-sweets.vercel.app/",
     githubUrl: "https://github.com/Shahbaz4462/Billing-System",
-    featured: true
-  },
-  {
-    id: "sargodha-sweets-website",
-    title: "Sargodha Sweets & Bakers — Website & Admin CMS",
-    shortDescription: "The official website of Sargodha Sweets & Bakers with a full admin CMS — products, categories, gallery, team and customer inquiries are all managed from a protected admin panel.",
-    fullDescription: "A complete business website and content-management system for Sargodha Sweets & Bakers (since 1990). The public site showcases the product range, gallery and the bakery's story, while a JWT-protected admin panel lets the owners manage products, categories, gallery images, team members, business settings and customer inquiries — backed by PostgreSQL with a Drizzle ORM data layer and Supabase-hosted media storage.",
-    image: "/projects/sargodha-website-preview.svg",
-    screenshots: [
-      "/projects/sargodha-website-preview.svg",
-      "/projects/sargodha-website-detail-1.svg",
-      "/projects/sargodha-website-detail-2.svg"
-    ],
-    category: "Full Stack",
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Vercel"],
-    features: [
-      "Protected admin CMS for products, categories, gallery, team and site settings",
-      "Customer inquiry management directly from the admin panel",
-      "PostgreSQL database with Drizzle ORM and checked-in schema migrations",
-      "Supabase Storage media uploads via short-lived signed URLs",
-      "JWT-secured admin authentication with a seeded first-run setup",
-      "Responsive public storefront with the bakery's full product showcase"
-    ],
-    challengesSolved: [
-      "Designed the data layer so the same codebase runs on an embedded local database in development and hosted PostgreSQL (Supabase) in production.",
-      "Kept media uploads fast and safe: files travel directly from the browser to storage through short-lived signed URLs, so the server never proxies an upload."
-    ],
-    architectureOverview: "Next.js App Router with a PostgreSQL + Drizzle ORM data layer, JWT-based admin sessions and Supabase Storage for persistent media; deployed on Vercel.",
-    liveDemoUrl: "https://sargodha-sweets-and-bakers-website.vercel.app/",
-    githubUrl: "https://github.com/Shahbaz4462/Sargodha-Sweets-and-Bakers-Website",
     featured: true
   },
   {
