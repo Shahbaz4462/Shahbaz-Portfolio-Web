@@ -25,9 +25,11 @@ export default function Home() {
       <HeroSection />
 
       {/* ② About + Qualification
-           The #qualification anchor sits right above AboutSection
-           so navbar clicks land at the right visual position. */}
-      <div id="qualification" style={{ scrollMarginTop: '80px' }} />
+           The #qualification anchor lives on the Qualification
+           Highlight Card inside AboutSection. (It used to be an
+           empty div right here, at the exact same Y as #about —
+           the scroll-spy then always preferred Qualification and
+           the About nav item could never stay highlighted.) */}
       <AboutSection />
 
       {/* ③ Experience / Timeline */}
